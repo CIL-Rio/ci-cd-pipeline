@@ -5,9 +5,9 @@ pipeline{
 
         stage('Get Source'){
             steps{
-                dir('frontend')
-                git url: 'https://github.com/CIL-Rio/front-end.git', branch: 'main'
-
+                dir('frontend'){
+                    git url: 'https://github.com/CIL-Rio/front-end.git', branch: 'main'
+                }
             }
         }
 
