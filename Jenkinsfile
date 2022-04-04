@@ -7,7 +7,7 @@ pipeline{
             steps{
                 echo 'Get Sources...'
                 dir('frontend'){
-                    git url: 'https://github.com/CIL-Rio/front-end.git', branch: 'main'
+                    git url: 'https://github.com/CIL-Rio/front-end.git', branch: 'master'
                 }
             }
         }
