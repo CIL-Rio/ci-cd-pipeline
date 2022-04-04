@@ -17,7 +17,7 @@ pipeline {
                 dir('frontend') {
                     script {
                         dockerapp = docker.build("leandroschwab/ciscoshop-frontend:${env.BUILD_ID}",
-                            '-f /Dockerfile .')
+                            '-f ./Dockerfile .')
                     }
                 }
             }
