@@ -4,7 +4,11 @@ pipeline {
     stages {
         stage('Get Source') {
             steps {
-                echo 'Get Sources...'
+                echo 'Get pipeline...'
+                dir('pipeline') {
+                    git url: 'https://github.com/CIL-Rio/ci-cd-pipeline.git', branch: 'master'
+                }
+                echo 'Get Frontend...'
                 dir('frontend') {
                     git url: 'https://github.com/CIL-Rio/front-end.git', branch: 'master'
                 }
@@ -13,7 +17,7 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                echo 'Docker Build'
+                echo 'Docker Build...'
                 dir('frontend') {
                     script {
                         dockerapp = docker.build("leandroschwab/ciscoshop-frontend:${env.BUILD_ID}",
@@ -31,6 +35,24 @@ pipeline {
                         dockerapp.push('latest')
                         dockerapp.push("${env.BUILD_ID}")
                     }
+                }
+            }
+        }
+        stage('Deploy Kubernetes') {
+            echo 'Deploy Kubernetes...'
+            agent {
+                kubernetes {
+                    cloud 'kubernetes'
+                }
+            }
+            environment {
+                tag_version = "${env.BUILD_ID}"
+            }
+            steps {
+                dir('pipeline') {
+                    sh 'sed -i "s/{{tag}}/$tag_version/g" ./kubernetes/api.yaml'
+                    sh 'cat ./kubernetes/api.yaml'
+                    kubernetesDeploy(configs: '**/kubernetes/**', kubeconfigId: 'kubeconfig')
                 }
             }
         }
