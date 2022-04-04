@@ -6,16 +6,20 @@ pipeline{
         stage('Get Source'){
             steps{
                 echo 'Get Sources...'
+                dir('frontend'){
                     git url: 'https://github.com/CIL-Rio/front-end.git', branch: 'master'
+                }
             }
         }
 
         stage('Docker Build'){
             steps{
                 echo 'Docker Build'
-                script{
-                    dockerapp = docker.build("leandroschwab/ciscoshop-frontend:${env.BUILD_ID}",
-                        '-f ./Dockerfile .')
+                dir('frontend'){
+                    script{
+                        dockerapp = docker.build("leandroschwab/ciscoshop-frontend:${env.BUILD_ID}",
+                            '-f /Dockerfile .')
+                    }
                 } 
             }
         }
