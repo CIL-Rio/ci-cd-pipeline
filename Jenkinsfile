@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'Get pipeline...'
                 dir('pipeline') {
-                    git url: 'https://github.com/CIL-Rio/ci-cd-pipeline.git', branch: 'master'
+                    git url: 'https://github.com/CIL-Rio/ci-cd-pipeline.git', branch: 'main'
                 }
                 echo 'Get Frontend...'
                 dir('frontend') {
