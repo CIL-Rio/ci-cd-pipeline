@@ -5,6 +5,7 @@ pipeline{
 
         stage('Get Source'){
             steps{
+                echo 'Get Sources...'
                 dir('frontend'){
                     git url: 'https://github.com/CIL-Rio/front-end.git', branch: 'main'
                 }
@@ -13,6 +14,7 @@ pipeline{
 
         stage('Docker Build'){
             steps{
+                echo 'Docker Build'
                 script{
                     dockerapp = docker.build("leandroschwab/ciscoshop-frontend:${env.BUILD_ID}",
                         '-f ./frontend/Dockerfile .')
@@ -22,6 +24,7 @@ pipeline{
 
         stage('Docker Push Image'){
             steps{
+                echo 'Docker Push Image...'
                 script{
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub'){
                     dockerapp.push('latest')
