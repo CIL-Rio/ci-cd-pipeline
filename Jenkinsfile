@@ -39,7 +39,6 @@ pipeline {
             }
         }
         stage('Deploy Kubernetes') {
-            echo 'Deploy Kubernetes...'
             agent {
                 kubernetes {
                     cloud 'kubernetes'
@@ -49,6 +48,7 @@ pipeline {
                 tag_version = "${env.BUILD_ID}"
             }
             steps {
+                echo 'Deploy Kubernetes...'
                 dir('pipeline') {
                     sh 'sed -i "s/{{tag}}/$tag_version/g" ./kubernetes/api.yaml'
                     sh 'cat ./kubernetes/api.yaml'
