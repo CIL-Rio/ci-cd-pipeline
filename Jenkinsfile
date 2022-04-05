@@ -5,7 +5,7 @@ pipeline {
         stage('Get Source') {
             steps {
                 echo 'Get pipeline...'
-                dir('pipeline') {
+                dir('config') {
                     git url: 'https://github.com/CIL-Rio/ci-cd-pipeline.git', branch: 'main'
                 }
                 echo 'Get Frontend...'
@@ -49,9 +49,10 @@ pipeline {
             }
             steps {
                 echo 'Deploy Kubernetes...'
-                sh 'sed -i "s/{{tag}}/$tag_version/g" ./pipeline/complete-demo.yaml'
-                sh 'cat ./pipeline/complete-demo.yaml'
-                kubernetesDeploy(configs: '/pipeline/complete-demo.yaml', kubeconfigId: 'kubeconfig')
+                sh "ls -la ${pwd()}"
+                sh 'sed -i "s/{{tag}}/$tag_version/g" ./config/complete-demo.yaml'
+                sh 'cat ./config/complete-demo.yaml'
+                kubernetesDeploy(configs: '/config/complete-demo.yaml', kubeconfigId: 'kubeconfig')
             }
         }
     }
