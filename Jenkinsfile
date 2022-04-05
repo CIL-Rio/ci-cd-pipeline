@@ -50,9 +50,9 @@ pipeline {
             steps {
                 echo 'Deploy Kubernetes...'
                 sh "ls -la ${pwd()}"
-                sh 'sed -i "s/{{tag}}/$tag_version/g" ./config/complete-demo.yaml'
-                sh 'cat ./config/complete-demo.yaml'
-                kubernetesDeploy(configs: '/config/complete-demo.yaml', kubeconfigId: 'kubeconfig')
+                sh 'sed -i "s/{{tag}}/$tag_version/g" complete-demo.yaml'
+                sh 'cat complete-demo.yaml'
+                kubernetesDeploy(configs: 'complete-demo.yaml', kubeconfigId: 'kubeconfig')
             }
         }
     }
