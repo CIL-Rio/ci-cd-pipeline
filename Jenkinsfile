@@ -15,7 +15,6 @@ pipeline {
             steps {
                 echo 'Docker Build...'
                 dir('frontend') {
-                    sh "ls -la ${pwd()}"
                     script {
                         dockerapp = docker.build("leandroschwab/ciscoshop-frontend:${env.BUILD_ID}",
                             '-f ./Dockerfile .')
@@ -46,9 +45,9 @@ pipeline {
             }
             steps {
                 echo 'Deploy Kubernetes...'
-                sh "ls -la ${pwd()}"
+                //sh "ls -la ${pwd()}"
                 sh 'sed -i "s/{{tag}}/$tag_version/g" complete-demo.yaml'
-                sh 'cat complete-demo.yaml'
+                //sh 'cat complete-demo.yaml'
                 kubernetesDeploy(configs: 'complete-demo.yaml', kubeconfigId: 'kubeconfig')
             }
         }
