@@ -26,7 +26,7 @@ pipeline {
         stage('SecureCN Vunerability Scan') {
             steps {
                 echo 'Secure CN Vunerability Scn'
-                secureCNVulnerabilityScanner(imageName:"leandroschwab/ciscoshop-frontend:${env.BUILD_ID}", secureCnAccessKey:'c1ac9ea8-3f09-470a-8e8b-c189b4c9cf82', secureCnSecretKeyId:'securecn-secret',highestSeverityAllowed: 'HIGH', highestSeverityAllowedDf:'FATAL', url: 'securecn.cisco.com', pushLocalImage: 'true')                        
+                secureCNVulnerabilityScanner(imageName:"leandroschwab/ciscoshop-frontend:${env.BUILD_ID}", secureCnAccessKey:'c1ac9ea8-3f09-470a-8e8b-c189b4c9cf82', secureCnSecretKeyId:'securecn-secret',highestSeverityAllowed: 'CRITICAL', highestSeverityAllowedDf:'FATAL', url: 'securecn.cisco.com', pushLocalImage: 'true')                        
              }
         }
 
