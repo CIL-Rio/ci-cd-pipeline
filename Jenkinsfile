@@ -7,6 +7,7 @@ pipeline {
                 echo 'Get Frontend...'
                 dir('frontend') {
                     git url: 'https://github.com/CIL-Rio/front-end.git', branch: 'master'
+                    ls -l
                 }
             }
         }
