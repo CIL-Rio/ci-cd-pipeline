@@ -14,7 +14,6 @@ pipeline {
         stage('Docker Build') {
             steps {
                 echo 'Docker Build...'
-                ls -l 
                 dir('frontend') {
                     script {
                         dockerapp = docker.build("leandroschwab/ciscoshop-frontend:${env.BUILD_ID}",
