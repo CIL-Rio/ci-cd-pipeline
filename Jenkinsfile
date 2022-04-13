@@ -7,7 +7,6 @@ pipeline {
                 echo 'Get Frontend...'
                 dir('frontend') {
                     git url: 'https://github.com/CIL-Rio/front-end.git', branch: 'master'
-                    ls -l
                 }
             }
         }
@@ -15,6 +14,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 echo 'Docker Build...'
+                ls -l 
                 dir('frontend') {
                     script {
                         dockerapp = docker.build("leandroschwab/ciscoshop-frontend:${env.BUILD_ID}",
